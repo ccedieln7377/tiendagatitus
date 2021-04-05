@@ -213,7 +213,7 @@ public class Principal {
                         for (Producto prod : tablaProductos){
                             System.out.println(prod.getCodigo() + " - " + prod.getNombreproducto() + " - " + prod.getCantidad() + " - " + prod.getPrecio());
                         }
-                        System.out.println("\nBasado en la tabla de inventario que muestra código, nombre, cantidad disponible y precio del producto, por favor ingrese el código del producto que desea comprar:\n");
+                        System.out.println("\nBasado en la tabla de inventario, por favor ingrese el código del producto que desea comprar:\n");
 
                         codigo = teclado.nextInt();
                         Producto comprado = tablaProductos.queryForId(codigo);
@@ -221,8 +221,14 @@ public class Principal {
                             System.out.println("Cantidad de productos: ");
                             cantidad = teclado.nextInt();
 
-                            Compra comp = new Compra(buscado, comprado, new Date(), cantidad, false);
-                            tablaCompra.create(comp);
+                            if (cantidad> comprado.getCantidad()){
+
+                                System.out.println("La cantidad ingresada no está disponible en el inventario");
+                            }
+                            else {
+                                Compra comp = new Compra(buscado, comprado, new Date(), cantidad, false);
+                                tablaCompra.create(comp);
+                            }
                         }
                         else{
                             System.out.println("El código del producto no existe");}
@@ -231,8 +237,6 @@ public class Principal {
                     else{
                         System.out.println("El cliente no existe");
                         }
-
-
 
                     break;
 
@@ -250,7 +254,7 @@ public class Principal {
                     for (int i = 0; i < comprados.size(); i++){
                         Compra total = comprados.get(i);
                         if (! total.isComprarealizada()) {
-                            Producto subtotal = total.getCodigo();
+                            Producto subtotal = total.getProducto();
                             subtotalcompra = subtotalcompra + subtotal.getPrecio() * total.getCantidad();
 
                             subtotal.setCantidad(subtotal.getCantidad() - total.getCantidad());
@@ -274,7 +278,7 @@ public class Principal {
 
                     for (Compra compracliente : tablaCompra){
                         if (compracliente.isComprarealizada())
-                            System.out.println(compracliente.getCedula() + " - " + compracliente.getCodigo() + " - " + compracliente.getFecha());
+                            System.out.println(compracliente.getProducto().getNombreproducto() + " - " + compracliente.getCantidad() + " - " + compracliente.getFecha());
                         else
                             System.out.println("El cliente seleccionado no ha realizado compras");
 

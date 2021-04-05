@@ -14,10 +14,10 @@ public class Compra {
     private Long codigocompra;
 
     @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true, columnName = "cedula_id")
-    private Cliente cedula;
+    private Cliente cliente;
 
     @DatabaseField (canBeNull = false, foreign = true, foreignAutoRefresh = true, columnName = "codigo_id")
-    private Producto codigo;
+    private Producto producto;
 
     @DatabaseField (canBeNull = false)
     private Date fecha;
@@ -31,9 +31,9 @@ public class Compra {
     public Compra(){}
 
 
-    public Compra(Cliente cedula, Producto codigo, Date fecha, int cantidad, boolean comprarealizada) {
-        this.cedula = cedula;
-        this.codigo = codigo;
+    public Compra(Cliente cliente, Producto producto, Date fecha, int cantidad, boolean comprarealizada) {
+        this.cliente = cliente;
+        this.producto = producto;
         this.fecha = fecha;
         this.cantidad = cantidad;
         this.comprarealizada = comprarealizada;
@@ -47,20 +47,20 @@ public class Compra {
         this.codigocompra = codigocompra;
     }
 
-    public Cliente getCedula() {
-        return cedula;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCedula(Cliente cedula) {
-        this.cedula = cedula;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public Producto getCodigo() {
-        return codigo;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setCodigo(Producto codigo) {
-        this.codigo = codigo;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
     public Date getFecha() {
